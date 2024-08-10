@@ -2,8 +2,6 @@ import time
 from numpy.random import randint
 import matplotlib.pyplot as plt
 import streamlit as st
-
-# Define sorting and heap operations functions
 def left(i):
     return 2 * i + 1
 

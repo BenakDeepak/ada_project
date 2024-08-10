@@ -3,6 +3,43 @@ import numpy as np
 import graphviz
 import time
 from PIL import Image
+import base64
+
+def image_to_base64(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+
+def set_app_style():
+    """
+    Defines custom CSS styles for the Streamlit app.
+    """
+    image_url = "https://png.pngtree.com/thumb_back/fh260/background/20210428/pngtree-pink-blue-light-effect-technology-background-image_688211.jpg"
+    st.markdown(
+        f"""
+        <style>
+            .stApp {{
+                background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("{image_url}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: #000000; /* Make all text dark black */
+            }}
+            .stSidebarContent {{
+                background: rgba(255, 255, 255, 0.8); /* Transparent white background for the sidebar */
+                color: #000000; /* Sidebar text color */
+            }}
+            h1, h2, h3, h4, h5, h6 {{
+                color: #000000; /* Heading colors */
+            }}
+            .stMarkdown p {{
+                color: #000000; /* Paragraph text color */
+            }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 def sift_up(arr, i, steps, sorted_indices):
     parent = (i - 1) // 2
     while i > 0 and arr[parent] < arr[i]:
@@ -88,7 +125,9 @@ def highlight_array(arr, sorted_indices):
             highlighted_arr.append(f'<span style="color:black">{arr[i]}</span>')
     return highlighted_arr
 
-def main():    
+def main():
+    set_app_style()  # Apply custom styles
+    
     st.title("Creative Heap Sort Visualization")
     st.write("## An interactive visualization of the heap sort algorithm with creative highlighting")
 
